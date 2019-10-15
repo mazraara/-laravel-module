@@ -2,8 +2,13 @@
 
 namespace Modules\Contact\Providers;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Contact\Entities\ContactRequest;
+use Modules\Contact\Repositories\Cache\CacheContactRequestDecorator;
+use Modules\Contact\Repositories\ContactRequestRepository;
+use Modules\Contact\Repositories\Eloquent\EloquentContactRequestRepository;
 
 class ContactServiceProvider extends ServiceProvider
 {
@@ -29,6 +34,9 @@ class ContactServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->registerBindings();
+//        $this->registerHtmlPackage();
+
     }
 
     /**
@@ -94,6 +102,22 @@ class ContactServiceProvider extends ServiceProvider
         }
     }
 
+
+//    /**
+//     * Register "iluminate/html" package.
+//     */
+//    private function registerHtmlPackage()
+//    {
+//        $this->app->register('Collective\Html\HtmlServiceProvider');
+//
+//        $aliases = [
+//            'HTML' => 'Collective\Html\HtmlFacade',
+//            'Form' => 'Collective\Html\FormFacade',
+//        ];
+//
+//        AliasLoader::getInstance($aliases)->register();
+//    }
+
     /**
      * Get the services provided by the provider.
      *
@@ -102,5 +126,20 @@ class ContactServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
+    }
+
+    private function registerBindings()
+    {
+        $this->app->bind(ContactRequestRepository::class, function () {
+            $repository = new EloquentContactRequestRepository(new ContactRequest());
+
+            if (! config('app.cache')) {
+                return $repository;
+            }
+
+            return new CacheContactRequestDecorator($repository);
+        });
+// add bindings
+
     }
 }

@@ -11,6 +11,22 @@
 |
 */
 
-Route::prefix('contact')->group(function() {
-    Route::get('/', 'ContactController@index');
-});
+//Route::prefix('contact')->group(function() {
+//    Route::get('/', 'ContactController@index');
+//});
+
+// frontend routes
+
+Route::get('contact', [
+    'as' => 'public.contact.show',
+    'uses' => 'Frontend\ContactRequestController@show',
+]);
+
+Route::post('contact', [
+    'as' => 'public.contact.submit',
+    'uses' => 'Frontend\ContactRequestController@store',
+]);
+
+// backend routes
+
+//todo: move to separate directories Controller

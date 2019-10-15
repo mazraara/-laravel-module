@@ -19,7 +19,7 @@
                         <p>{{ trans('contact::contact.sub-title') }}</p>
                     </div>
                     {!! Form::open(['route' => 'public.contact.submit', 'method' => 'post']) !!}
-                        @include('partials.notifications')
+{{--                        @include('partials.notifications')--}}
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">

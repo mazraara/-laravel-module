@@ -2,13 +2,13 @@
 
 namespace Modules\Contact\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Contact\Entities\ContactRequest;
 use Modules\Contact\Repositories\ContactRequestRepository;
-use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 
-class ContactRequestController extends AdminBaseController
+class ContactRequestController extends Controller
 {
     /**
      * @var ContactRequestRepository

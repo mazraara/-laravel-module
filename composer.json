@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.2.0",
         "nwidart/laravel-modules": "^6.0"
     },
     "require-dev": {
